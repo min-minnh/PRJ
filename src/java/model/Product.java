@@ -3,7 +3,6 @@ package model;
 import java.util.Date;
 
 public class Product {
-
     private int id;
     private String name;
     private String slug;
@@ -20,150 +19,92 @@ public class Product {
     private int categoryId;
     private int brandId;
 
-    public Product() {
-    }
+    // JOIN fields
+    private String categoryName;
+    private String brandName;
+
+    // ── JOIN fields (thêm để hiển thị tên category/brand) ────────────────────
+  
+
+    public Product() {}
 
     public Product(int id, String name, String slug, String description,
             double price, int stock, int sold, String image,
             double discount, int warranty,
             boolean isFeatured, boolean status,
             Date createdDate, int categoryId, int brandId) {
-        this.id = id;
-        this.name = name;
-        this.slug = slug;
-        this.description = description;
-        this.price = price;
-        this.stock = stock;
-        this.sold = sold;
-        this.image = image;
-        this.discount = discount;
-        this.warranty = warranty;
-        this.isFeatured = isFeatured;
-        this.status = status;
-        this.createdDate = createdDate;
-        this.categoryId = categoryId;
+        this.id = id; this.name = name; this.slug = slug;
+        this.description = description; this.price = price;
+        this.stock = stock; this.sold = sold; this.image = image;
+        this.discount = discount; this.warranty = warranty;
+        this.isFeatured = isFeatured; this.status = status;
+        this.createdDate = createdDate; this.categoryId = categoryId;
         this.brandId = brandId;
     }
 
-    public int getId() {
-        return id;
+    // ── Helper: giá sau giảm ─────────────────────────────────────────────────
+    public double getSalePrice() {
+        if (discount <= 0) return price;
+        return Math.round(price * (1 - discount / 100));
     }
 
-    public void setId(int id) {
-        this.id = id;
+    // ── Helper: % đã bán ─────────────────────────────────────────────────────
+    public int getSoldPercent() {
+        int total = sold + stock;
+        if (total == 0) return 0;
+        return (int) Math.round((double) sold / total * 100);
     }
 
-    public String getName() {
-        return name;
-    }
+    // ── Getters & Setters gốc ────────────────────────────────────────────────
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getSlug() {
-        return slug;
-    }
+    public String getSlug() { return slug; }
+    public void setSlug(String slug) { this.slug = slug; }
 
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public String getDescription() {
-        return description;
-    }
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public int getStock() { return stock; }
+    public void setStock(int stock) { this.stock = stock; }
 
-    public double getPrice() {
-        return price;
-    }
+    public int getSold() { return sold; }
+    public void setSold(int sold) { this.sold = sold; }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+    public String getImage() { return image; }
+    public void setImage(String image) { this.image = image; }
 
-    public int getStock() {
-        return stock;
-    }
+    public double getDiscount() { return discount; }
+    public void setDiscount(double discount) { this.discount = discount; }
 
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
+    public int getWarranty() { return warranty; }
+    public void setWarranty(int warranty) { this.warranty = warranty; }
 
-    public int getSold() {
-        return sold;
-    }
+    public boolean isIsFeatured() { return isFeatured; }
+    public void setIsFeatured(boolean isFeatured) { this.isFeatured = isFeatured; }
 
-    public void setSold(int sold) {
-        this.sold = sold;
-    }
+    public boolean isStatus() { return status; }
+    public void setStatus(boolean status) { this.status = status; }
 
-    public String getImage() {
-        return image;
-    }
+    public Date getCreatedDate() { return createdDate; }
+    public void setCreatedDate(Date createdDate) { this.createdDate = createdDate; }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
+    public int getCategoryId() { return categoryId; }
+    public void setCategoryId(int categoryId) { this.categoryId = categoryId; }
 
-    public double getDiscount() {
-        return discount;
-    }
+    public int getBrandId() { return brandId; }
+    public void setBrandId(int brandId) { this.brandId = brandId; }
 
-    public void setDiscount(double discount) {
-        this.discount = discount;
-    }
+    // ── Getters & Setters cho JOIN fields ────────────────────────────────────
+    public String getCategoryName() { return categoryName; }
+    public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
 
-    public int getWarranty() {
-        return warranty;
-    }
-
-    public void setWarranty(int warranty) {
-        this.warranty = warranty;
-    }
-
-    public boolean isIsFeatured() {
-        return isFeatured;
-    }
-
-    public void setIsFeatured(boolean isFeatured) {
-        this.isFeatured = isFeatured;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public int getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(int brandId) {
-        this.brandId = brandId;
-    }
-
-   
+    public String getBrandName() { return brandName; }
+    public void setBrandName(String brandName) { this.brandName = brandName; }
 }
